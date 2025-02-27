@@ -1,13 +1,13 @@
 //
 //  Navigable.swift
-//
+//  Serotonin
 //
 //  Created by Abdulilah Imad on 2/24/24.
 //
 
 import SwiftUI
 
-public protocol Navigable: Identifiable, Hashable {
+public protocol Navigable: Identifiable, Hashable, Equatable {
     associatedtype Destination: View
     
     var id: Self.ID { get }

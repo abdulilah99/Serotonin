@@ -24,22 +24,20 @@ struct SideBarToggleButton: ToolbarContent {
     }
     
     var body: some ToolbarContent {
+        ToolbarItem(placement: toolbarPlacement) {
+            if isShown {
+                content()
+            } else {
+                content().hidden()
+            }
+        }
+    }
+    
+    var toolbarPlacement: ToolbarItemPlacement {
 #if os(macOS)
-        ToolbarItem(placement: .automatic) {
-            if isShown {
-                content()
-            } else {
-                content().hidden()
-            }
-        }
+        .automatic
 #else
-        ToolbarItem(placement: .topBarLeading) {
-            if isShown {
-                content()
-            } else {
-                content().hidden()
-            }
-        }
+        .topBarLeading
 #endif
     }
     

@@ -11,7 +11,7 @@ struct SideBarButton<Page: Navigable>: View {
     @Environment(\.navigationSelection) var navigationSelection
     @Environment(\.setNavigationSelection) var setNavigationSelection
     //@Environment(\.navigationStack) var navigationStack
-    @Environment(\.setNavigationStack) var setNavigationStack
+    @Environment(\.setNavigationPath) var setNavigationStack
     
     let page: Page
     

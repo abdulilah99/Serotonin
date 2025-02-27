@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Sheet.swift
 //  Serotonin
 //
 //  Created by Abdulilah on 27/02/2025.
@@ -13,5 +13,6 @@ public protocol Sheet: Navigable {
 }
 
 public extension Sheet {
+    var isFullscreen: Bool { false }
     var onDismiss: (() -> Void)? { nil }
 }

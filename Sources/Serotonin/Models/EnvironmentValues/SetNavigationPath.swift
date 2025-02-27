@@ -1,13 +1,13 @@
 //
 //  SetNavigationStack.swift
-//  
+//  Serotonin
 //
 //  Created by Abdulilah Imad on 3/12/24.
 //
 
 import SwiftUI
 
-struct SetNavigationStackAction {
+public struct SetNavigationPathAction {
     typealias Action = ([any Navigable]) -> Void
     let action: Action
     
@@ -16,6 +16,6 @@ struct SetNavigationStackAction {
     }
 }
 
-extension EnvironmentValues {
-    @Entry var setNavigationStack: SetNavigationStackAction = .init(action: { _ in })
+public extension EnvironmentValues {
+    @Entry var setNavigationPath: SetNavigationPathAction = .init(action: { _ in })
 }

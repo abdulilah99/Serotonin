@@ -10,11 +10,11 @@ import SwiftUI
 struct TabBarView<Content: View, Page: Navigable>: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
-    var controllers: [NavigableStack<Page>]
+    var stacks: [NavigableStack<Page>]
     var content: Content
     
-    init(_ controllers: [NavigableStack<Page>], @ViewBuilder content: () -> Content) {
-        self.controllers = controllers
+    init(_ stacks: [NavigableStack<Page>], @ViewBuilder content: () -> Content) {
+        self.stacks = stacks
         self.content = content()
     }
     
@@ -22,7 +22,7 @@ struct TabBarView<Content: View, Page: Navigable>: View {
         ZStack(alignment: .bottom) {
             content
             
-            TabBarList(controllers)
+            TabBarList(stacks)
                 .ignoresSafeArea(.keyboard)
                 .opacity(horizontalSizeClass != .compact ? 0 : 1)
         }

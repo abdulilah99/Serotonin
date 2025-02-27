@@ -21,15 +21,15 @@ public protocol NavigationController: AnyObject, Observable {
     var sheets: [Card] { get set }
     func present(sheet: Card)
     
-    @ViewBuilder func makeView(for page: Page) -> Content
+    @ViewBuilder func makeView() -> Content
 }
 
-extension NavigationController {
-    public func select(tab: Page) {
+public extension NavigationController {
+    func select(tab: Page) {
         selectedTab = tab
     }
     
-    public func navigate(to page: Page, on tab: Page? = nil) {
+    func navigate(to page: Page, on tab: Page? = nil) {
         let targetTab = tab ?? selectedTab
         
         if let existingStack = stacks.first(where: { $0.page == targetTab }) {
@@ -46,12 +46,20 @@ extension NavigationController {
         selectedTab = targetTab
     }
     
-    public func present(sheet: Card) {
+    func present(sheet: Card) {
         if let index = sheets.firstIndex(of: sheet) {
             let removalIndex = index + 1
             sheets.removeSubrange(removalIndex..<sheets.count)
         } else {
             sheets.append(sheet)
         }
+    }
+    
+    func makeView() -> some View {
+        BarNavigationView<Page>(stacks: stacks)
+            .environment(\.navigationSelection, selectedTab)
+            .environment(\.setNavigationSelection, SetNavigationSelectionAction(action: { selection in
+                self.selectedTab = selection as! Page
+            }))
     }
 }

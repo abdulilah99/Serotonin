@@ -1,6 +1,6 @@
 //
 //  TabBarList.swift
-//
+//  Serotonin
 //
 //  Created by Abdulilah Imad on 2/24/24.
 //
@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct TabBarList<Page: Navigable>: View {
-    var controllers: [NavigableStack<Page>]
+    var stacks: [NavigableStack<Page>]
     
-    init(_ controllers: [NavigableStack<Page>]) {
-        self.controllers = controllers
+    init(_ stacks: [NavigableStack<Page>]) {
+        self.stacks = stacks
     }
     
     var body: some View {
@@ -19,12 +19,12 @@ struct TabBarList<Page: Navigable>: View {
             Divider()
             
             HStack(spacing: 50) {
-                ForEach(controllers) { controller in
-                    if controller.page.placement.isInTabBar {
-                        TabBarButton(page: controller.page)
-                            .environment(\.navigationStack, controller.path)
-                            .environment(\.setNavigationStack, SetNavigationStackAction(action: { stack in
-                                controller.path = stack as! [Page]
+                ForEach(stacks) { stack in
+                    if stack.page.placement.isInTabBar {
+                        TabBarButton(page: stack.page)
+                            .environment(\.navigationPath, stack.path)
+                            .environment(\.setNavigationPath, SetNavigationPathAction(action: { path in
+                                stack.path = path as! [Page]
                             }))
                     }
                 }

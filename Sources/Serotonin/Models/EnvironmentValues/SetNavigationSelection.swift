@@ -1,13 +1,13 @@
 //
 //  SetNavigationSelection.swift
-//
+//  Serotonin
 //
 //  Created by Abdulilah Imad on 3/12/24.
 //
 
 import SwiftUI
 
-struct SetNavigationSelectionAction {
+public struct SetNavigationSelectionAction {
     typealias Action = (any Navigable) -> Void
     let action: Action
     
@@ -16,6 +16,6 @@ struct SetNavigationSelectionAction {
     }
 }
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
     @Entry var setNavigationSelection: SetNavigationSelectionAction = .init(action: { _ in })
 }
