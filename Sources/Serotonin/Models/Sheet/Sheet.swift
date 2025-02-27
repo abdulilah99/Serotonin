@@ -9,10 +9,10 @@ import Foundation
 
 public protocol Sheet: Navigable {
     var isFullscreen: Bool { get }
-    var onDismiss: (() -> Void)? { get set }
+    func onDismiss()
 }
 
 public extension Sheet {
     var isFullscreen: Bool { false }
-    var onDismiss: (() -> Void)? { nil }
+    func onDismiss() { }
 }
