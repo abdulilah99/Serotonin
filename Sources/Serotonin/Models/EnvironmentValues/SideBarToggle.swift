@@ -16,13 +16,6 @@ struct SideBarToggleAction {
     }
 }
 
-struct SideBarToggleActionKey: EnvironmentKey {
-    static var defaultValue: SideBarToggleAction = .init(action: {})
-}
-
 extension EnvironmentValues {
-    var toggleSideBar: SideBarToggleAction {
-        get { self[SideBarToggleActionKey.self] }
-        set { self[SideBarToggleActionKey.self] = newValue }
-    }
+    @Entry var toggleSideBar: SideBarToggleAction = .init(action: {})
 }

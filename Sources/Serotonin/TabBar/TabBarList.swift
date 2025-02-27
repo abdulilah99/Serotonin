@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct TabBarList<Page: Navigable>: View {
-    var controllers: [NavigableController<Page>]
+    var controllers: [NavigableStack<Page>]
     
-    init(_ controllers: [NavigableController<Page>]) {
+    init(_ controllers: [NavigableStack<Page>]) {
         self.controllers = controllers
     }
     
@@ -22,9 +22,9 @@ struct TabBarList<Page: Navigable>: View {
                 ForEach(controllers) { controller in
                     if controller.page.placement.isInTabBar {
                         TabBarButton(page: controller.page)
-                            .environment(\.navigationStack, controller.stack)
+                            .environment(\.navigationStack, controller.path)
                             .environment(\.setNavigationStack, SetNavigationStackAction(action: { stack in
-                                controller.stack = stack as! [Page]
+                                controller.path = stack as! [Page]
                             }))
                     }
                 }

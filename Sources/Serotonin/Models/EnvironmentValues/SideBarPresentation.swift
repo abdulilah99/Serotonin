@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-private struct SideBarPresentationKey: EnvironmentKey {
-    static let defaultValue: Bool = true
-}
-
 public extension EnvironmentValues {
-    var isSideBarPresented: Bool {
-        get { self[SideBarPresentationKey.self] }
-        set { self[SideBarPresentationKey.self] = newValue }
-    }
+    @Entry var isSideBarPresented: Bool = true
 }

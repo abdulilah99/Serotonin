@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Serotonin",
     platforms: [
-        .macOS(.v13), .iOS(.v16), .tvOS(.v16), .visionOS(.v1), .watchOS(.v10)
+        .macOS(.v14), .iOS(.v17), .tvOS(.v17)
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.

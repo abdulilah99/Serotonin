@@ -10,10 +10,10 @@ import SwiftUI
 struct SideBarView<Content: View, Page: Navigable>: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
-    var controllers: [NavigableController<Page>]
+    var controllers: [NavigableStack<Page>]
     var content: Content
     
-    init(_ controllers: [NavigableController<Page>], @ViewBuilder content: () -> Content) {
+    init(_ controllers: [NavigableStack<Page>], @ViewBuilder content: () -> Content) {
         self.controllers = controllers
         self.content = content()
     }
@@ -27,9 +27,7 @@ struct SideBarView<Content: View, Page: Navigable>: View {
             ZStack {
                 if isSideBarPresented && horizontalSizeClass != .compact {
                     HStack(spacing: 0) {
-                        SideBarList(controllers) {
-                            sideBarToggleButton
-                        }
+                        SideBarList(controllers)
                         
                         Divider()
                             .ignoresSafeArea(.all)
@@ -41,22 +39,10 @@ struct SideBarView<Content: View, Page: Navigable>: View {
             .zIndex(4)
             
             content
-               // .toolbar { sideBarToggleButton }
         }
         .environment(\.isSideBarPresented, isSideBarPresented)
         .environment(\.toggleSideBar, SideBarToggleAction {
             isSideBarPresented.toggle()
         })
-    }
-    
-    var sideBarToggleButton: some ToolbarContent {
-        ToolbarItem(placement: .topBarLeading) {
-            Button(action: {
-                isSideBarPresented.toggle()
-            }) {
-                Image(systemName: "sidebar.left")
-            }
-            .matchedGeometryEffect(id: "sideBar.toggle", in: sideBarNamespace)
-        }
     }
 }

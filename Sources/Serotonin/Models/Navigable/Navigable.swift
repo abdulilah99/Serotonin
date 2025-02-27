@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Observation
 
 public protocol Navigable: Identifiable, Hashable {
     associatedtype Destination: View
@@ -14,30 +13,15 @@ public protocol Navigable: Identifiable, Hashable {
     var id: Self.ID { get }
     var title: LocalizedStringKey { get }
     var systemImage: String { get }
-    @ViewBuilder var destination: Self.Destination { get }
+    @ViewBuilder var destination: Destination { get }
     
     var placement: BarPlacement { get }
 }
 
-
 public enum BarPlacement: Hashable, Codable {
     case all, side, tab, none
     
-    var isInSideBar: Bool {
-        switch self {
-        case .all:  true
-        case .side: true
-        case .tab:  false
-        case .none: false
-        }
-    }
+    var isInSideBar: Bool { [.all, .side].contains(self) }
     
-    var isInTabBar: Bool {
-        switch self {
-        case .all:  true
-        case .side: false
-        case .tab:  true
-        case .none: false
-        }
-    }
+    var isInTabBar: Bool { [.all, .tab].contains(self) }
 }

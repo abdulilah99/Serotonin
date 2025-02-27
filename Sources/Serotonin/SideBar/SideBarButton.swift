@@ -1,13 +1,13 @@
 //
-//  TabBarButton.swift
+//  SideBarButton.swift
 //
 //
-//  Created by Abdulilah Imad on 2/24/24.
+//  Created by Abdulilah Imad on 7/9/24.
 //
 
 import SwiftUI
 
-struct TabBarButton<Page: Navigable>: View {
+struct SideBarButton<Page: Navigable>: View {
     @Environment(\.navigationSelection) var navigationSelection
     @Environment(\.setNavigationSelection) var setNavigationSelection
     //@Environment(\.navigationStack) var navigationStack
@@ -23,6 +23,7 @@ struct TabBarButton<Page: Navigable>: View {
     
     var body: some View {
         Button(action: {
+            print(isActive)
             isAnimating.toggle()
             if isActive {
                 setNavigationStack.callAsFunction(stack: [])
@@ -30,20 +31,21 @@ struct TabBarButton<Page: Navigable>: View {
                 setNavigationSelection.callAsFunction(selection: page)
             }
         }) {
-            VStack(spacing: 2) {
-                Image(systemName: page.systemImage)
-                    //.symbolEffect(.bounce.byLayer, options: .nonRepeating, value: isAnimating)
-                    .symbolVariant(.fill)
-                    .font(.system(size: 24))
-                    .frame(height: 26)
+            ZStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(.systemGroupedBackground))
+                    .opacity(isActive ? 1 : 0.0001)
                 
-                Text(page.title)
-                    .font(.system(size: 11))
-                    .lineLimit(1)
+                Label(page.title, systemImage: page.systemImage)
+                    //.symbolEffect(.bounce, options: .nonRepeating, value: isAnimating)
+                    .padding(.horizontal)
             }
-            .frame(width: 58)
-            .foregroundColor(isActive ? .accentColor : .primary.opacity(0.5))
-            .labelsHidden()
+            .frame(height: 48)
         }
+        .buttonStyle(.plain)
+        .listRowInsets(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
     }
 }
+

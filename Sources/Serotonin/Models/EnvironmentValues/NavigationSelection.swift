@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-private struct NavigationSelectionKey: EnvironmentKey {
-    static let defaultValue: (any Navigable)? = nil
-}
-
 public extension EnvironmentValues {
-    var navigationSelection: (any Navigable)? {
-        get { self[NavigationSelectionKey.self] }
-        set { self[NavigationSelectionKey.self] = newValue }
-    }
+    @Entry var navigationSelection: (any Navigable)? = nil
 }

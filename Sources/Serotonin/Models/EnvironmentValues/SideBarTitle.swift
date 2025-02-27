@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-private struct SideBarTitleKey: EnvironmentKey {
-    static let defaultValue: LocalizedStringKey = ""
-}
-
 public extension EnvironmentValues {
-    var sideBarTitle: LocalizedStringKey {
-        get { self[SideBarTitleKey.self] }
-        set { self[SideBarTitleKey.self] = newValue }
-    }
+    @Entry var sideBarTitle: LocalizedStringKey = ""
 }

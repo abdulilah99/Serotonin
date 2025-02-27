@@ -7,16 +7,15 @@
 
 import SwiftUI
 
-struct SideBarList<Page: Navigable, ToolBar: ToolbarContent>: View {
+struct SideBarList<Page: Navigable>: View {
+    @Environment(\.isSideBarPresented) private var isSideBarPresented
     @Environment(\.toggleSideBar) private var toggleSideBar
     @Environment(\.sideBarTitle) private var sideBarTitle
     
-    var controllers: [NavigableController<Page>]
-    var toolBar: ToolBar
+    var controllers: [NavigableStack<Page>]
     
-    init(_ controllers: [NavigableController<Page>], toolBar: @escaping () -> ToolBar) {
+    init(_ controllers: [NavigableStack<Page>]) {
         self.controllers = controllers
-        self.toolBar = toolBar()
     }
     
     var body: some View {
@@ -24,17 +23,18 @@ struct SideBarList<Page: Navigable, ToolBar: ToolbarContent>: View {
             List {
                 ForEach(controllers) { controller in
                     if controller.page.placement.isInSideBar {
-                        TabBarButton(page: controller.page)
-                            .environment(\.navigationStack, controller.stack)
+                        SideBarButton(page: controller.page)
+                            .environment(\.navigationStack, controller.path)
                             .environment(\.setNavigationStack, SetNavigationStackAction(action: { stack in
-                                controller.stack = stack as! [Page]
+                                controller.path = stack as! [Page]
                             }))
                     }
                 }
             }
-            .listStyle(.sidebar)
+            .listStyle(.plain)
+            .background(Color(.secondarySystemGroupedBackground))
             .navigationTitle(sideBarTitle)
-            .toolbar { toolBar }
+            .toolbar { SideBarToggleButton(isInSideBar: true) }
         }
         .frame(maxHeight: .infinity)
         .frame(width: 320)

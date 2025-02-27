@@ -16,13 +16,6 @@ struct SetNavigationStackAction {
     }
 }
 
-struct SetNavigationStackActionKey: EnvironmentKey {
-    static var defaultValue: SetNavigationStackAction = .init(action: { _ in })
-}
-
 extension EnvironmentValues {
-    var setNavigationStack: SetNavigationStackAction {
-        get { self[SetNavigationStackActionKey.self] }
-        set { self[SetNavigationStackActionKey.self] = newValue }
-    }
+    @Entry var setNavigationStack: SetNavigationStackAction = .init(action: { _ in })
 }

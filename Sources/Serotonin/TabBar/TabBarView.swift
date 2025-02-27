@@ -10,10 +10,10 @@ import SwiftUI
 struct TabBarView<Content: View, Page: Navigable>: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
-    var controllers: [NavigableController<Page>]
+    var controllers: [NavigableStack<Page>]
     var content: Content
     
-    init(_ controllers: [NavigableController<Page>], @ViewBuilder content: () -> Content) {
+    init(_ controllers: [NavigableStack<Page>], @ViewBuilder content: () -> Content) {
         self.controllers = controllers
         self.content = content()
     }
