@@ -5,7 +5,7 @@
 //  Created by Abdulilah on 27/02/2025.
 //
 
-import Foundation
+import SwiftUI
 
 public protocol Sheet: Navigable {
     var isFullscreen: Bool { get }
@@ -13,6 +13,9 @@ public protocol Sheet: Navigable {
 }
 
 public extension Sheet {
+    var title: LocalizedStringKey { "Sheet" }
+    var systemImage: String { "" }
+    var placement: BarPlacement { .none }
     var isFullscreen: Bool { false }
     func onDismiss() { }
 }

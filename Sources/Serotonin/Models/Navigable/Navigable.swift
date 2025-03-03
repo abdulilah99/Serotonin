@@ -16,6 +16,9 @@ public protocol Navigable: Identifiable, Hashable, Equatable {
     @ViewBuilder var destination: Destination { get }
     
     var placement: BarPlacement { get }
+    
+    @available(iOS 18.0, macOS 15.0, tvOS 18.0, *)
+    var role: TabRole? { get }
 }
 
 public enum BarPlacement: Hashable, Codable {
@@ -24,4 +27,8 @@ public enum BarPlacement: Hashable, Codable {
     var isInSideBar: Bool { [.all, .side].contains(self) }
     
     var isInTabBar: Bool { [.all, .tab].contains(self) }
+    
+    var sideBarVisibility: Visibility { isInSideBar ? .visible : .hidden }
+    
+    var tabBarVisibility: Visibility { isInTabBar ? .visible : .hidden }
 }

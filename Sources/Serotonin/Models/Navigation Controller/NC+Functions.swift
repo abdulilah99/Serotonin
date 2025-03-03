@@ -1,28 +1,11 @@
 //
-//  NavigationController.swift
+//  NC+Functions.swift
 //  Serotonin
 //
-//  Created by Abdulilah on 26/02/2025.
+//  Created by Abdulilah on 03/03/2025.
 //
 
-import SwiftUI
-
-public protocol NavigationController: AnyObject, Observable {
-    associatedtype Page: Navigable
-    associatedtype Card: Sheet
-    associatedtype Content: View
-    
-    var selectedTab: Page { get set }
-    func select(tab: Page)
-    
-    var stacks: [NavigableStack<Page>] { get set }
-    func navigate(to page: Page, on tab: Page?)
-    
-    var sheets: [Card] { get set }
-    func present(sheet: Card)
-    
-    @ViewBuilder func makeView() -> Content
-}
+import Foundation
 
 public extension NavigationController {
     func select(tab: Page) {
@@ -53,13 +36,5 @@ public extension NavigationController {
         } else {
             sheets.append(sheet)
         }
-    }
-    
-    func makeView() -> some View {
-        BarNavigationView<Page>(stacks: stacks)
-            .environment(\.navigationSelection, selectedTab)
-            .environment(\.setNavigationSelection, SetNavigationSelectionAction(action: { selection in
-                self.selectedTab = selection as! Page
-            }))
     }
 }

@@ -1,5 +1,5 @@
 //
-//  BarNavigationView.swift
+//  CustomNavigationView.swift
 //
 //
 //  Created by Abdulilah Imad on 3/12/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BarNavigationView<Page: Navigable>: View {
+public struct CustomNavigationView<Page: Navigable>: View {
     @Environment(\.navigationSelection) var selection
     
     @Namespace var namespace
@@ -32,7 +32,8 @@ struct BarNavigationView<Page: Navigable>: View {
     }
 }
 
-struct ControllerView<Page: Navigable>: View {
+fileprivate struct ControllerView<Page: Navigable>: View {
+    
     @Environment(NavigableStack<Page>.self) var stack
     
     var body: some View {
