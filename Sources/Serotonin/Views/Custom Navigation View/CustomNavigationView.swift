@@ -12,19 +12,19 @@ public struct CustomNavigationView<Page: Navigable>: View {
     
     @Namespace var namespace
     
-    var stacks: [NavigableStack<Page>]
+    var tabs: [AppTab<Page>]
     
-    public init(stacks: [NavigableStack<Page>]) {
-        self.stacks = stacks
+    public init(tabs: [AppTab<Page>]) {
+        self.tabs = tabs
     }
     
     public var body: some View {
-        SideBarView(stacks) {
-            TabBarView(stacks) {
-                ForEach(stacks) { stack in
+        SideBarView(tabs) {
+            TabBarView(tabs) {
+                ForEach(tabs) { tab in
                     ControllerView<Page>()
-                        .environment(stack)
-                        .opacity(selection?.hashValue != stack.page.hashValue ? 0 : 1)
+                        .environment(tab)
+                        .opacity(selection?.hashValue != tab.page.hashValue ? 0 : 1)
                 }
             }
         }
@@ -33,17 +33,16 @@ public struct CustomNavigationView<Page: Navigable>: View {
 }
 
 fileprivate struct ControllerView<Page: Navigable>: View {
-    
-    @Environment(NavigableStack<Page>.self) var stack
+    @Environment(AppTab<Page>.self) var tab
     
     var body: some View {
-        @Bindable var stack = stack
-        NavigationStack(path: $stack.path) {
-            stack.page.destination
+        @Bindable var tab = tab
+        NavigationStack(path: $tab.path) {
+            tab.page.destination
                 .toolbar { SideBarToggleButton(isInSideBar: false) }
                 .navigationDestination(for: Page.self) { navigable in
                     navigable.destination
-                        .environment(stack)
+                        .environment(tab)
                 }
         }
     }

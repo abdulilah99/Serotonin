@@ -13,10 +13,10 @@ struct OldTabNavigationView<Page: Navigable>: View {
     
     @Namespace var namespace
     
-    var stacks: [NavigableStack<Page>]
+    var tabs: [AppTab<Page>]
     
-    public init(stacks: [NavigableStack<Page>]) {
-        self.stacks = stacks
+    public init(tabs: [AppTab<Page>]) {
+        self.tabs = tabs
     }
     
     var selection: Binding<Page?> {
@@ -29,12 +29,12 @@ struct OldTabNavigationView<Page: Navigable>: View {
     
     public var body: some View {
         TabView(selection: selection) {
-            ForEach(stacks) { stack in
+            ForEach(tabs) { tab in
                 ControllerView<Page>()
-                    .environment(stack)
-                    .tag(stack.page)
+                    .environment(tab)
+                    .tag(tab.page)
                     .tabItem {
-                        Label(stack.page.title, systemImage: stack.page.systemImage)
+                        Label(tab.page.title, systemImage: tab.page.systemImage)
                     }
             }
         }
@@ -43,15 +43,15 @@ struct OldTabNavigationView<Page: Navigable>: View {
 }
 
 fileprivate struct ControllerView<Page: Navigable>: View {
-    @Environment(NavigableStack<Page>.self) var stack
+    @Environment(AppTab<Page>.self) var tab
     
     var body: some View {
-        @Bindable var stack = stack
-        NavigationStack(path: $stack.path) {
-            stack.page.destination
+        @Bindable var tab = tab
+        NavigationStack(path: $tab.path) {
+            tab.page.destination
                 .navigationDestination(for: Page.self) { navigable in
                     navigable.destination
-                        .environment(stack)
+                        .environment(tab)
                 }
         }
     }

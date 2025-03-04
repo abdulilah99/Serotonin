@@ -8,22 +8,22 @@
 import Foundation
 
 public extension NavigationController {
-    func select(tab: Page) {
+    func select(tab: Tab) {
         selectedTab = tab
     }
     
-    func navigate(to page: Page, on tab: Page? = nil) {
+    func navigate(to page: Tab, on tab: Tab? = nil) {
         let targetTab = tab ?? selectedTab
         
-        if let existingStack = stacks.first(where: { $0.page == targetTab }) {
-            if let index = existingStack.path.firstIndex(of: page) {
+        if let existingStack = tabs.first(where: { $0.page == targetTab }) {
+            if let index = existingStack.path.firstIndex(where: { $0.hashValue == page.hashValue }) {
                 let removalIndex = index + 1
                 existingStack.path.removeSubrange(removalIndex..<existingStack.path.count)
             } else {
                 existingStack.path.append(page)
             }
         } else {
-            stacks.append(NavigableStack(page: targetTab, path: [page]))
+            tabs.append(AppTab(page: targetTab, path: [page]))
         }
         
         selectedTab = targetTab

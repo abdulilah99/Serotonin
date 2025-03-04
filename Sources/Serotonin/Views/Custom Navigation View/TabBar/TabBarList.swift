@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct TabBarList<Page: Navigable>: View {
-    var stacks: [NavigableStack<Page>]
+    var tabs: [AppTab<Page>]
     
-    init(_ stacks: [NavigableStack<Page>]) {
-        self.stacks = stacks
+    init(_ tabs: [AppTab<Page>]) {
+        self.tabs = tabs
     }
     
     var body: some View {
@@ -19,12 +19,12 @@ struct TabBarList<Page: Navigable>: View {
             Divider()
             
             HStack(spacing: 50) {
-                ForEach(stacks) { stack in
-                    if stack.page.placement.isInTabBar {
-                        TabBarButton(page: stack.page)
-                            .environment(\.navigationPath, stack.path)
+                ForEach(tabs) { tab in
+                    if tab.page.placement.isInTabBar {
+                        TabBarButton(page: tab.page)
+                            .environment(\.navigationPath, tab.path)
                             .environment(\.setNavigationPath, SetNavigationPathAction(action: { path in
-                                stack.path = path as! [Page]
+                                tab.path = path as! [Page]
                             }))
                     }
                 }

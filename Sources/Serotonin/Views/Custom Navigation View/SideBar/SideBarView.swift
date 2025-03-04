@@ -10,11 +10,11 @@ import SwiftUI
 struct SideBarView<Content: View, Page: Navigable>: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
-    var stacks: [NavigableStack<Page>]
+    var tabs: [AppTab<Page>]
     var content: Content
     
-    init(_ stacks: [NavigableStack<Page>], @ViewBuilder content: () -> Content) {
-        self.stacks = stacks
+    init(_ tabs: [AppTab<Page>], @ViewBuilder content: () -> Content) {
+        self.tabs = tabs
         self.content = content()
     }
     
@@ -27,7 +27,7 @@ struct SideBarView<Content: View, Page: Navigable>: View {
             ZStack {
                 if isSideBarPresented && horizontalSizeClass != .compact {
                     HStack(spacing: 0) {
-                        SideBarList(stacks)
+                        SideBarList(tabs)
                         
                         Divider()
                             .ignoresSafeArea(.all)

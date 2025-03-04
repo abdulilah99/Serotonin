@@ -21,15 +21,15 @@ extension NavigationController {
     @ViewBuilder
     var iOS17Compatible: some View {
         if useCustomNavigationBar {
-            CustomNavigationView(stacks: stacks)
+            CustomNavigationView(tabs: tabs)
         } else {
-            OldTabNavigationView(stacks: stacks)
+            OldTabNavigationView(tabs: tabs)
         }
     }
     
     @available(iOS 18.0, macOS 15.0, tvOS 18.0, *)
     var iOS18Compatible: some View {
-        TabNavigationView(stacks: stacks)
+        TabNavigationView(tabs: tabs)
     }
     
     @ViewBuilder
@@ -46,11 +46,26 @@ extension NavigationController {
             .sheets(items: sheetsBinding)
             .environment(\.navigationSelection, selectedTab)
             .environment(\.setNavigationSelection, SetNavigationSelectionAction(action: { selection in
-                self.selectedTab = selection as! Page
+                self.selectedTab = selection as! Tab
             }))
     }
     
-//    func makeView(for navigable: Page) -> some View {
-//        
-//    }
+    func makeView(for tab: AppTab<Tab>) -> some View {
+        ControllerView<Tab>().environment(tab)
+    }
+}
+
+fileprivate struct ControllerView<Page: Navigable>: View {
+    @Environment(AppTab<Page>.self) var tab
+    
+    var body: some View {
+        @Bindable var tab = tab
+        NavigationStack(path: $tab.path) {
+            tab.page.destination
+                .navigationDestination(for: Page.self) { navigable in
+                    navigable.destination
+                        .environment(tab)
+                }
+        }
+    }
 }

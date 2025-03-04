@@ -12,21 +12,21 @@ struct SideBarList<Page: Navigable>: View {
     @Environment(\.toggleSideBar) private var toggleSideBar
     @Environment(\.sideBarTitle) private var sideBarTitle
     
-    var stacks: [NavigableStack<Page>]
+    var tabs: [AppTab<Page>]
     
-    init(_ stacks: [NavigableStack<Page>]) {
-        self.stacks = stacks
+    init(_ tabs: [AppTab<Page>]) {
+        self.tabs = tabs
     }
     
     var body: some View {
         NavigationStack {
             List {
-                ForEach(stacks) { stack in
-                    if stack.page.placement.isInSideBar {
-                        SideBarButton(page: stack.page)
-                            .environment(\.navigationPath, stack.path)
+                ForEach(tabs) { tab in
+                    if tab.page.placement.isInSideBar {
+                        SideBarButton(page: tab.page)
+                            .environment(\.navigationPath, tab.path)
                             .environment(\.setNavigationPath, SetNavigationPathAction(action: { path in
-                                stack.path = path as! [Page]
+                                tab.path = path as! [Page]
                             }))
                     }
                 }

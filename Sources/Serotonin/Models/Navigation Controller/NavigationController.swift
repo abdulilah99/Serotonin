@@ -8,15 +8,16 @@
 import SwiftUI
 
 public protocol NavigationController: AnyObject, Observable {
-    associatedtype Page: Navigable
+    associatedtype Tab: Navigable
+    //associatedtype Page: Navigable
     associatedtype Card: Sheet
     associatedtype Content: View
     
-    var selectedTab: Page { get set }
-    func select(tab: Page)
+    var selectedTab: Tab { get set }
+    func select(tab: Tab)
     
-    var stacks: [NavigableStack<Page>] { get set }
-    func navigate(to page: Page, on tab: Page?)
+    var tabs: [AppTab<Tab>] { get set }
+    func navigate(to page: Tab, on tab: Tab?)
     
     var sheets: [Card] { get set }
     func present(sheet: Card)
