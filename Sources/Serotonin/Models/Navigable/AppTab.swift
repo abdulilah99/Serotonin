@@ -13,7 +13,7 @@ public class AppTab<Page: Navigable>: Identifiable {
     let page: Page
     var path: [Page]
     
-    public init(page: Page, path: [Page]) {
+    public init(page: Page, path: [Page] = []) {
         self.page = page
         self.path = path
     }

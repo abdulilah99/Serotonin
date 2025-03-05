@@ -8,7 +8,7 @@
 import SwiftUI
 
 public protocol Sheet: Navigable {
-    var isFullscreen: Bool { get }
+    var isFullScreen: Bool { get }
     func onDismiss()
 }
 
@@ -16,6 +16,6 @@ public extension Sheet {
     var title: LocalizedStringKey { "Sheet" }
     var systemImage: String { "" }
     var placement: BarPlacement { .none }
-    var isFullscreen: Bool { false }
+    var isFullScreen: Bool { false }
     func onDismiss() { }
 }

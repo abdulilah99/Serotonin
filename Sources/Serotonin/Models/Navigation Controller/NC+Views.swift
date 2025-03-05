@@ -16,11 +16,11 @@ extension NavigationController {
         }
     }
     
-    var useCustomNavigationBar: Bool { false }
+    var useCustomNavigationView: Bool { false }
     
     @ViewBuilder
     var iOS17Compatible: some View {
-        if useCustomNavigationBar {
+        if useCustomNavigationView {
             CustomNavigationView(tabs: tabs)
         } else {
             OldTabNavigationView(tabs: tabs)

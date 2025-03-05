@@ -11,7 +11,6 @@ public protocol NavigationController: AnyObject, Observable {
     associatedtype Tab: Navigable
     //associatedtype Page: Navigable
     associatedtype Card: Sheet
-    associatedtype Content: View
     
     var selectedTab: Tab { get set }
     func select(tab: Tab)
@@ -23,6 +22,4 @@ public protocol NavigationController: AnyObject, Observable {
     func present(sheet: Card)
     
     var useCustomNavigationView: Bool { get }
-    
-    @ViewBuilder func makeView() -> Content
 }
