@@ -5,7 +5,7 @@
 //  Created by Abdulilah Imad on 3/12/24.
 //
 
-import Foundation
+import SwiftUI
 import Observation
 
 @Observable
@@ -18,8 +18,23 @@ public class AppTab<Page: Navigable>: Identifiable {
         self.path = path
     }
     
-//    public init(page: Page, path: [Page] = []) where Page == Path {
-//        self.page = page
-//        self.path = path
-//    }
+    var pathBinding: Binding<[Page]> {
+        .init(get: { self.path }) { newValue in
+            self.path = newValue
+        }
+    }
+    
+    @ViewBuilder
+    public var content: some View {
+        NavigationStack(path: pathBinding) {
+            page.destination
+                .navigationDestination(for: Page.self) { navigable in
+                    navigable.destination
+                }
+        }
+        .environment(\.navigationPath, path)
+        .environment(\.setNavigationPath, SetNavigationPathAction(action: { path in
+            self.path = path as! [Page]
+        }))
+    }
 }

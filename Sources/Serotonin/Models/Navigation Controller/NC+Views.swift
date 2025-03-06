@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension NavigationController {
+public extension NavigationController {
     private var sheetsBinding: Binding<[Card]> {
         Binding(get: {
             self.sheets
@@ -16,10 +16,8 @@ extension NavigationController {
         }
     }
     
-    var useCustomNavigationView: Bool { false }
-    
     @ViewBuilder
-    var iOS17Compatible: some View {
+    private var iOS17Compatible: some View {
         if useCustomNavigationView {
             CustomNavigationView(tabs: tabs)
         } else {
@@ -28,12 +26,12 @@ extension NavigationController {
     }
     
     @available(iOS 18.0, macOS 15.0, tvOS 18.0, *)
-    var iOS18Compatible: some View {
+    private var iOS18Compatible: some View {
         TabNavigationView(tabs: tabs)
     }
     
     @ViewBuilder
-    var view: some View {
+    private var view: some View {
         if #available(iOS 18.0, macOS 15.0, tvOS 18.0, *) {
             iOS18Compatible
         } else {
@@ -48,24 +46,5 @@ extension NavigationController {
             .environment(\.setNavigationSelection, SetNavigationSelectionAction(action: { selection in
                 self.selectedTab = selection as! Tab
             }))
-    }
-    
-    func makeView(for tab: AppTab<Tab>) -> some View {
-        ControllerView<Tab>().environment(tab)
-    }
-}
-
-fileprivate struct ControllerView<Page: Navigable>: View {
-    @Environment(AppTab<Page>.self) var tab
-    
-    var body: some View {
-        @Bindable var tab = tab
-        NavigationStack(path: $tab.path) {
-            tab.page.destination
-                .navigationDestination(for: Page.self) { navigable in
-                    navigable.destination
-                        .environment(tab)
-                }
-        }
     }
 }

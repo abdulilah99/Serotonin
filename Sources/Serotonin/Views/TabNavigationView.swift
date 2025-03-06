@@ -31,9 +31,8 @@ struct TabNavigationView<Page: Navigable>: View {
     public var body: some View {
         TabView(selection: selection) {
             ForEach(tabs) { tab in
-                SwiftUI.Tab(tab.page.title, systemImage: tab.page.systemImage, value: tab.page, role: tab.page.role) {
-                    ControllerView<Page>()
-                        .environment(tab)
+                Tab(tab.page.title, systemImage: tab.page.systemImage, value: tab.page, role: tab.page.role) {
+                    tab.content
                 }
                 .tabPlacement(.automatic)
                 .defaultVisibility(tab.page.placement.sideBarVisibility, for: .sidebar)
@@ -43,20 +42,5 @@ struct TabNavigationView<Page: Navigable>: View {
         .tabViewStyle(.sidebarAdaptable)
         .defaultAdaptableTabBarPlacement(.sidebar)
         .environment(\.serotoninNamespace, namespace)
-    }
-}
-
-fileprivate struct ControllerView<Page: Navigable>: View {
-    @Environment(AppTab<Page>.self) var tab
-    
-    var body: some View {
-        @Bindable var tab = tab
-        NavigationStack(path: $tab.path) {
-            tab.page.destination
-                .navigationDestination(for: Page.self) { navigable in
-                    navigable.destination
-                        .environment(tab)
-                }
-        }
     }
 }

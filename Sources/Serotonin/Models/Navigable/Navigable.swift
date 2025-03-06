@@ -21,11 +21,11 @@ public protocol Navigable: Identifiable, Hashable, Equatable {
     var role: TabRole? { get }
 }
 
-extension Navigable {
-    public var placement: BarPlacement { .all }
+public extension Navigable {
+    var placement: BarPlacement { .all }
     
     @available(iOS 18.0, macOS 15.0, tvOS 18.0, *)
-    public var role: TabRole? { nil }
+    var role: TabRole? { nil }
 }
 
 public enum BarPlacement: Hashable, Codable {

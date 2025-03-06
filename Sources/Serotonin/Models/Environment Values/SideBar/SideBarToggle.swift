@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SideBarToggleAction {
+public struct SideBarToggleAction {
     typealias Action = () -> Void
     let action: Action
     
@@ -16,6 +16,6 @@ struct SideBarToggleAction {
     }
 }
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
     @Entry var toggleSideBar: SideBarToggleAction = .init(action: {})
 }
