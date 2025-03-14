@@ -12,9 +12,9 @@ public struct CustomNavigationView<Page: Navigable>: View {
     
     @Namespace var namespace
     
-    var tabs: [AppTab<Page>]
+    var tabs: [NavigationTab<Page>]
     
-    public init(tabs: [AppTab<Page>]) {
+    public init(tabs: [NavigationTab<Page>]) {
         self.tabs = tabs
     }
     
@@ -33,7 +33,7 @@ public struct CustomNavigationView<Page: Navigable>: View {
 }
 
 fileprivate struct ControllerView<Page: Navigable>: View {
-    @Environment(AppTab<Page>.self) var tab
+    @Environment(NavigationTab<Page>.self) var tab
     
     var body: some View {
         @Bindable var tab = tab

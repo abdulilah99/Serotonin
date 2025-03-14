@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct TabBarList<Page: Navigable>: View {
-    var tabs: [AppTab<Page>]
+    var tabs: [NavigationTab<Page>]
     
-    init(_ tabs: [AppTab<Page>]) {
+    init(_ tabs: [NavigationTab<Page>]) {
         self.tabs = tabs
     }
     

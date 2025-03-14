@@ -23,7 +23,7 @@ public extension NavigationController {
                 existingStack.path.append(page)
             }
         } else {
-            tabs.append(AppTab(page: targetTab, path: [page]))
+            tabs.append(NavigationTab(page: targetTab, path: [page]))
         }
         
         selectedTab = targetTab

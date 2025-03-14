@@ -13,9 +13,9 @@ struct OldTabNavigationView<Page: Navigable>: View {
     
     @Namespace var namespace
     
-    var tabs: [AppTab<Page>]
+    var tabs: [NavigationTab<Page>]
     
-    public init(tabs: [AppTab<Page>]) {
+    public init(tabs: [NavigationTab<Page>]) {
         self.tabs = tabs
     }
     

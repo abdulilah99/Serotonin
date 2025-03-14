@@ -10,10 +10,10 @@ import SwiftUI
 struct SideBarView<Content: View, Page: Navigable>: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
-    var tabs: [AppTab<Page>]
+    var tabs: [NavigationTab<Page>]
     var content: Content
     
-    init(_ tabs: [AppTab<Page>], @ViewBuilder content: () -> Content) {
+    init(_ tabs: [NavigationTab<Page>], @ViewBuilder content: () -> Content) {
         self.tabs = tabs
         self.content = content()
     }

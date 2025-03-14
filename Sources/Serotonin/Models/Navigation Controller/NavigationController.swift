@@ -15,7 +15,7 @@ public protocol NavigationController: AnyObject, Observable {
     var selectedTab: Tab { get set }
     func select(tab: Tab)
     
-    var tabs: [AppTab<Tab>] { get set }
+    var tabs: [NavigationTab<Tab>] { get set }
     func navigate(to page: Tab, on tab: Tab?)
     
     var sheets: [Card] { get set }

@@ -12,9 +12,9 @@ struct SideBarList<Page: Navigable>: View {
     @Environment(\.toggleSideBar) private var toggleSideBar
     @Environment(\.sideBarTitle) private var sideBarTitle
     
-    var tabs: [AppTab<Page>]
+    var tabs: [NavigationTab<Page>]
     
-    init(_ tabs: [AppTab<Page>]) {
+    init(_ tabs: [NavigationTab<Page>]) {
         self.tabs = tabs
     }
     

@@ -1,5 +1,5 @@
 //
-//  AppTab.swift
+//  NavigationTab.swift
 //  Serotonin
 //
 //  Created by Abdulilah Imad on 3/12/24.
@@ -9,7 +9,7 @@ import SwiftUI
 import Observation
 
 @Observable
-public class AppTab<Page: Navigable>: Identifiable {
+public class NavigationTab<Page: Navigable>: Identifiable {
     let page: Page
     var path: [Page]
     
