@@ -31,7 +31,7 @@ struct TabNavigationView<Page: Navigable>: View {
     public var body: some View {
         TabView(selection: selection) {
             ForEach(tabs) { tab in
-                Tab(tab.page.title, systemImage: tab.page.systemImage, value: tab.page, role: tab.page.role) {
+                Tab(tab.page.titleKey, systemImage: tab.page.systemImage, value: tab.page, role: tab.page.role) {
                     tab.content
                 }
                 .tabPlacement(.automatic)

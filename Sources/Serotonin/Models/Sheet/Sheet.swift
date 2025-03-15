@@ -13,7 +13,7 @@ public protocol Sheet: Navigable {
 }
 
 public extension Sheet {
-    var title: LocalizedStringKey { "Sheet" }
+    var titleKey: LocalizedStringKey { "Sheet" }
     var systemImage: String { "" }
     var placement: BarPlacement { .none }
     var isFullScreen: Bool { false }

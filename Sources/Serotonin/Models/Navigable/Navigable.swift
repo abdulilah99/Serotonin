@@ -11,7 +11,7 @@ public protocol Navigable: Identifiable, Hashable, Equatable {
     associatedtype Destination: View
     
     var id: Self.ID { get }
-    var title: LocalizedStringKey { get }
+    var titleKey: LocalizedStringKey { get }
     var systemImage: String { get }
     @ViewBuilder var destination: Destination { get }
     

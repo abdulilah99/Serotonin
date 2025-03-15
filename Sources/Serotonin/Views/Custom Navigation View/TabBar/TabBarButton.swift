@@ -36,7 +36,7 @@ struct TabBarButton<Page: Navigable>: View {
                     .font(.system(size: 24))
                     .frame(height: 26)
                 
-                Text(page.title)
+                Text(page.titleKey)
                     .font(.system(size: 11))
                     .lineLimit(1)
             }
